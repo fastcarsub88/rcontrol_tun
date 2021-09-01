@@ -7,8 +7,6 @@ door_ids = {
 "main"  : [3,4]
 }
 
-door_states['reset','small','main','tunnel','none']
-
 wind_dir_dict = {
 0  : "N",
 45 : "NE",
