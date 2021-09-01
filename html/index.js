@@ -30,23 +30,8 @@ modal.open = async function(func,dnum){
     modalBtn.innerText = (setAutoBtn.dataset.dnum == '0' ? "ON" : "OFF");
     modal.auto = (setAutoBtn.dataset.dnum == '0' ? "true" : "false");
   }
-  if (func == 'open' || func == 'close'){
-    var funcTl = func[0].toUpperCase()+func.substr(1);
-    modalSlider.max = "100";
-    modalSlider.OnMove = () => {
-      if (modalSlider.value == 100) {
-        mdlFuncVl.innerHTML = funcTl+" On";
-      }else {
-        mdlFuncVl.innerHTML = funcTl+" on for "+modalSlider.value+" sec.";
-      }
-    }
-    modalSlider.OnMove();
-    var title = (dnum[1] == "2" ? "Small" : "Main")+' Door '+dnum[0];
-    modalBtn.innerText = funcTl;
-  }
   document.getElementById('model_title').innerText = title;
   this.func = func;
-  this.dnum = dnum;
   this.classList.remove('no-display')
 };
 modal.close = function(){
@@ -87,16 +72,10 @@ stModal.close = function () {this.classList.add('no-display')}
 loader.show = function () {this.classList.remove('no-display')}
 loader.hide = function () {this.classList.add('no-display')}
 setAutoBtn.onclick = () => modal.open('set_auto');
+document.getElementById('auto_btn').onclick = () => {modal.open('set_auto')};
 document.getElementById('pres_btn').onclick = () => {modal.open('set_pressure')};
 document.getElementById('op_st_btn').onclick = () => {stModal.open()};
 document.getElementById('get_params_btn').onclick = () => parModel.open();
-document.getElementById('dbtn_area').onclick = (e) => {
-  if (!e.target.dataset.dfunc) {return}
-  var tgt_data = e.target.dataset;
-  var dnum = tgt_data.dnum;
-  var func = tgt_data.dfunc;
-  modal.open(func,dnum);
-}
 document.getElementById('par_mdl_btn').onclick = () => {
   var e = parForm.elements;
   var obj = {
@@ -142,6 +121,10 @@ document.getElementById('st_modal_btn').onclick = () => {
 document.getElementById('clx1').onclick = () => parModel.close();
 document.getElementById('clx2').onclick = () => modal.close();
 document.getElementById('clx3').onclick = () => stModal.close();
+var dbtn = document.querySelectorAll('.dbtn');
+for (var i = 0; i < dtn.length; i++) {
+  dtn[i].addEventListener('click',door_btn_click)
+}
 document.addEventListener('visibilitychange',() => {
   if (document.visibilityState == 'hidden') {
     poll.pause();
@@ -157,24 +140,14 @@ modalBtn.onclick = async function () {
     fd.append('percent',modalSlider.value);
     fd.append('method','set_pressure')
   }else if (modal.func == 'set_auto') {
-    var func = function () {
-      setAutoBtn.classList.toggle('btn_active');
-      setAutoBtn.dataset.dnum = (setAutoBtn.dataset.dnum == '1' ? '0' : '1')
-    }
     var auto = modal.auto;
     fd.append('method','set_auto');
     fd.append('auto',auto);
-  } else {
-    fd.append('dnum',modal.dnum);
-    fd.append('dfunc',modal.func);
-    fd.append('mv_tm',modalSlider.value);
-    fd.append('method',"move_door");
   }
   loader.show();
   await send_data(fd).then(() => {
     modal.close();
     loader.hide();
-    func();
   });
   setTimeout(() => get_conditions(),500);
 }
@@ -194,6 +167,20 @@ var poll = {
     poll.paused = true;
     clearTimeout(poll.timer);
   }
+}
+async function door_btn_click() {
+  var fd = new FormData();
+  fd.append('dnum',this.dnum);
+  fd.append('dfunc',this.func);
+  fd.append('method',"move_door");
+  loader.show();
+  await send_data(fd).then(() => {
+    loader.hide();
+    get_conditions();
+  });
+}
+function test() {
+  console.log(this.dataset.dnum);
 }
 async function send_data(request) {
   return fetch(

@@ -1,35 +1,7 @@
-import cgi,json,threading,megaioind as m,relay8 as r
+import cgi,json,threading
 from time import sleep
 from datetime import datetime
 from definitions import *
-
-def open_door(dnum,mv_tm):
-    op_relay = door_dict[dnum+"open"]
-    cl_relay = door_dict[dnum+"close"]
-    def move():
-        m.setRelay(cl_relay[0],cl_relay[1],0)
-        sleep(0.1)
-        m.setRelay(op_relay[0],op_relay[1],1)
-        if mv_tm == 100:
-            return
-        sleep(mv_tm)
-        m.setRelay(op_relay[0],op_relay[1],0)
-    thr = threading.Thread(target=move)
-    thr.start()
-
-def close_door(dnum,mv_tm):
-    op_relay = door_dict[dnum+"open"]
-    cl_relay = door_dict[dnum+"close"]
-    def move():
-        m.setRelay(op_relay[0],op_relay[1],0)
-        sleep(0.1)
-        m.setRelay(cl_relay[0],cl_relay[1],1)
-        if mv_tm == 100:
-            return
-        sleep(mv_tm)
-        m.setRelay(cl_relay[0],cl_relay[1],0)
-    thr = threading.Thread(target=move)
-    thr.start()
 
 def set_pressure(percent):
     pres = int(percent)
@@ -48,18 +20,18 @@ def set_auto_man(bool):
         data_file['auto'] = bool
         with open('data_file.json','w') as f:
              f.write(json.dumps(data_file))
-        if bool == 0:
-            m.setRelays(0,0)
 
 def get_params():
     with open('data_file.json') as f:
         return f.read()
 
 def get_status():
-    r_stat = '{0:04b}'.format(m.getRelays(0))
+    r_stat = relay_state()
     d = {}
-    for i in range(len(door_arr)):
-        d[door_arr[i]] = r_stat[i]
+    ind = 0
+    for i in door_dict:
+        d[ind] = r_stat[i]
+        ind =+ 1
     res = {}
     res['d_stat'] = json.dumps(d)
     res['params'] = get_params()
@@ -87,13 +59,12 @@ def func_caller(post):
     try:
         if method == 'move_door':
             op_cl = post.getvalue('dfunc')
-            mv_tm = int(post.getvalue('mv_tm'))
             dnum = post.getvalue('dnum')
             set_auto_man(0)
             if op_cl == 'close':
-                close_door(dnum,mv_tm)
+                close_door(dnum)
             else:
-                open_door(dnum,mv_tm)
+                open_door(dnum)
         if method == 'set_pressure':
             pres = post.getvalue('percent')
             set_pressure(pres)

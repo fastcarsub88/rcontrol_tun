@@ -1,33 +1,8 @@
-import requests,threading,json,requests,megaioind as m, relay8 as r,time
+import requests,threading,json,requests,time
 from datetime import datetime
 from definitions import *
 
 last_weather_check = 0
-
-def open_door(dnum):
-    op_relay = door_dict[dnum+"open"]
-    cl_relay = door_dict[dnum+"close"]
-    r_set(cl_relay[0],cl_relay[1],0)
-    time.sleep(0.1)
-    r_set(op_relay[0],op_relay[1],1)
-
-def close_door(dnum):
-    op_relay = door_dict[dnum+"open"]
-    cl_relay = door_dict[dnum+"close"]
-    r_set(op_relay[0],op_relay[1],0)
-    time.sleep(0.1)
-    r_set(cl_relay[0],cl_relay[1],1)
-
-def set_press(press):
-    if int(m.getUOut(pres_AO[0],pres_AO[1])) == press:
-        return
-    m.setUOut(pres_AO[0],pres_AO[1],press)
-
-def r_set(brd,num,state):
-    r_stat = '{0:04b}'.format(m.getRelays(0))
-    if int(r_stat[4 - num]) == state:
-        return
-    m.setRelay(brd,num,state)
 
 def get_conditions(data_file):
     w_data = requests.get("https://api.openweathermap.org/data/2.5/weather?zip=65078,us&appid=914fd2c984f8077049df587218d8579d&units=imperial")
@@ -68,6 +43,30 @@ def cnt_time(time,num):
                 t -= 1
     return t
 
+def set_door_press(data,tm):
+    cr_tm = str(tm)
+    cr_tm = (cr_tm[0:2]+":"+cr_tm[2:4])
+    if (cnt_time(cr_tm + fst_close_tm) > cl_tm:
+        set_press(data['min_pres'])
+    elif (data['rain'] == 'true'):
+        set_press(data['rain_pres'])
+    else:
+        set_press(data['max_pres'])
+
+def set_doors(state):
+    if is_tunnel():
+        open_door('main1')
+        close_door('small1')
+        open_door('small2')
+        close_door('main2')
+        return
+    if state == 'reset' or state == 'none':
+        close_doors('small')
+        close_doors('main')
+        return
+    open_doors(state)
+    close_doors(state)
+
 while True:
     time.sleep(5)
     cr_tm = int(datetime.now().strftime('%H:%M').replace(":",''))
@@ -103,27 +102,7 @@ while True:
             data_file['state'] = 'open'
             with open('data_file.json','w') as f:
                 f.write(json.dumps(data_file))
-        if data_file['open_state'] == 'none':
-            set_press(7)
-            close_door("11")
-            time.sleep(0.001)
-            close_door("12")
-            time.sleep(0.001)
-        else:
-            cr_tm = str(cr_tm)
-            cr_tm = (cr_tm[0:2]+":"+cr_tm[2:4])
-            if (cnt_time(cr_tm + fst_close_tm) > cl_tm:
-                set_press(data_file['min_pres'])
-            elif (data_file['rain'] == 'true'):
-                set_press(data_file['rain_pres'])
-            else:
-                set_press(data_file['max_pres'])
-            st = data_file['open_state']
-            op_dr = ('2' if st == 'small' else '1')
-            cl_dr = ('2' if st == 'main' else '1')
-            open_door("1"+op_dr)
-            time.sleep(0.001)
-            close_door("1"+cl_dr)
+        set_door_press(data_file,cr_tm)
     else:
         if data_file['state'] == 'open':
             data_file['state'] = 'close'
@@ -131,7 +110,4 @@ while True:
             with open('data_file.json','w') as f:
                 f.write(json.dumps(data_file))
         set_press(7)
-        close_door("11")
-        time.sleep(0.001)
-        close_door("12")
-        time.sleep(0.001)
+    set_doors(data_file['open_state'])
