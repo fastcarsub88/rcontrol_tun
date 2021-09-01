@@ -170,8 +170,8 @@ var poll = {
 }
 async function door_btn_click() {
   var fd = new FormData();
-  fd.append('dnum',this.dnum);
-  fd.append('dfunc',this.func);
+  fd.append('dnum',this.dataset.dnum);
+  fd.append('dfunc',this.dataset.func);
   fd.append('method',"move_door");
   loader.show();
   await send_data(fd).then(() => {
@@ -222,8 +222,10 @@ async function get_conditions() {
     var el = document.querySelector('button[name="door'+key+'"]');
     if (value == '1') {
       el.classList.add("btn_active");
+      el.dataset.dfunc = 'close'
     }else {
       el.classList.remove('btn_active');
+      el.dataset.dfunc = 'open'
     }
   }
   var d = new Date();
