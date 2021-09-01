@@ -171,7 +171,7 @@ var poll = {
 async function door_btn_click() {
   var fd = new FormData();
   fd.append('dnum',this.dataset.dnum);
-  fd.append('dfunc',this.dataset.func);
+  fd.append('dfunc',this.dataset.dfunc);
   fd.append('method',"move_door");
   loader.show();
   await send_data(fd).then(() => {
