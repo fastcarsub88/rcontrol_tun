@@ -122,7 +122,7 @@ document.getElementById('clx1').onclick = () => parModel.close();
 document.getElementById('clx2').onclick = () => modal.close();
 document.getElementById('clx3').onclick = () => stModal.close();
 var dbtn = document.querySelectorAll('.dbtn');
-for (var i = 0; i < dtn.length; i++) {
+for (var i = 0; i < dbtn.length; i++) {
   dbtn[i].addEventListener('click',door_btn_click)
 }
 document.addEventListener('visibilitychange',() => {
