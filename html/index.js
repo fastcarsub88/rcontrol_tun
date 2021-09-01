@@ -179,9 +179,6 @@ async function door_btn_click() {
     get_conditions();
   });
 }
-function test() {
-  console.log(this.dataset.dnum);
-}
 async function send_data(request) {
   return fetch(
       window.location.href+'/api',
@@ -211,7 +208,7 @@ async function get_status() {
 async function get_conditions() {
   var status = await get_status();
   params = JSON.parse(status.params);
-  var d_stat = JSON.parse(status.d_stat);
+  var d_stat = status.d_stat.split('');
   document.getElementById('temp_elem').innerText = params.feels_like;
   document.getElementById('wind_sp_elem').innerText = params.wind_speed;
   document.getElementById('wind_dir_elem').innerText = params.wind_dir;
@@ -222,7 +219,7 @@ async function get_conditions() {
     setAutoBtn.dataset.dnum = '1';
   }
   for (let [key, value] of Object.entries(d_stat)){
-    var el = document.querySelector('button[name="'+key+'"]');
+    var el = document.querySelector('button[name="door'+key+'"]');
     if (value == '1') {
       el.classList.add("btn_active");
     }else {
