@@ -26,14 +26,8 @@ def get_params():
         return f.read()
 
 def get_status():
-    r_stat = relay_state()
-    d = {}
-    ind = 0
-    for i in door_dict:
-        d[ind] = r_stat[i]
-        ind =+ 1
     res = {}
-    res['d_stat'] = json.dumps(d)
+    res['d_stat'] = json.dumps(relay_state()[::-1])
     res['params'] = get_params()
     res['time'] = datetime.now().strftime('%H:%M')
     return json.dumps(res)
