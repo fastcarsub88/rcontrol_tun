@@ -3,9 +3,11 @@ bord_id = 0
 AO_id   = 1
 
 door_ids = {
-"main"  : [1,2],
-"small" : [3,4]
+"main"  : [1,3],
+"small" : [2,4]
 }
+
+tun_doors = ['main0','small1']
 
 wind_dir_dict = {
 0  : "N",
@@ -26,7 +28,14 @@ def calc_doors(type):
     str = '0000'
     for i in door_ids[type]:
         str = str[:(i-1)] +'1'+ str[i:]
-    return str[::-1]
+    return int(str[::-1])
+
+def calc_tun_doors():
+    str = '0000'
+    for i in tun_doors:
+        index = door_ids[i[0:-1]][int(i[-1])]
+        str = str[:(index-1)] +'1'+ str[index:]
+    return int(str[::-1])
 
 def open_door(dnum):
     m.setRelay(bord_id,calc_door(dnum),1)
@@ -34,11 +43,8 @@ def open_door(dnum):
 def close_door(dnum):
     m.setRelay(bord_id,calc_door(dnum),0)
 
-def close_doors(type):
-    m.setRelays(bord_id,calc_doors(type),0)
-
-def open_doors(type):
-    m.setRelays(bord_id,calc_doors(type),1)
+def set_doors(num):
+    m.setRelays(bord_id,num)
 
 def relay_state():
     return '{0:04b}'.format(m.getRelays(bord_id))
