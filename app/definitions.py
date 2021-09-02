@@ -3,8 +3,8 @@ bord_id = 0
 AO_id   = 1
 
 door_ids = {
-"small" : [1,2],
-"main"  : [3,4]
+"main"  : [1,2],
+"small" : [3,4]
 }
 
 wind_dir_dict = {
