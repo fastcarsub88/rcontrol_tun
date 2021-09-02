@@ -1,6 +1,7 @@
 import megaioind as m
 bord_id = 0
-AO_id   = 4
+AO_id   = 1
+DI_id   = 4
 
 door_ids = {
 "main"  : [1,3],
@@ -50,7 +51,7 @@ def relay_state():
     return '{0:04b}'.format(m.getRelays(bord_id))
 
 def is_tunnel():
-    return m.getOptoCh(bord_id,1)
+    return m.getOptoCh(bord_id,DI_id)
 
 def set_press(press):
     if int(m.getUOut(bord_id,AO_id)) == press:
