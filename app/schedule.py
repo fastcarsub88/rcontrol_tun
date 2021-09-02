@@ -46,7 +46,7 @@ def cnt_time(time,num):
 def set_door_press(data,tm):
     cr_tm = str(tm)
     cr_tm = (cr_tm[0:2]+":"+cr_tm[2:4])
-    if (cnt_time(cr_tm + fst_close_tm) > cl_tm):
+    if (cnt_time(cr_tm, fst_close_tm) > cl_tm):
         set_press(data['min_pres'])
     elif (data['rain'] == 'true'):
         set_press(data['rain_pres'])
