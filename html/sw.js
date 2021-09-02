@@ -1,8 +1,9 @@
-var cacheName = 'v38';
+var cacheName = 'rcontrol_tun-v1';
 var filesToCache = [
-  cacheName+"/index.js",
-  cacheName+"/style.css",
-  cacheName+"/manifest.json",
+  "index.js",
+  "style.css",
+  "manifest.json",
+  'index.html',
   'img/maskicon.png'
 ]
 self.addEventListener('install', function(e) {
@@ -30,9 +31,12 @@ self.addEventListener('activate',  event => {
 });
 
 self.addEventListener('fetch', event => {
-  var a = new URL(event.request.url);
-  var request = cacheName+a.pathname.substr(a.pathname.lastIndexOf('/'))
-  event.respondWith(
+  var a = event.request.url;
+  var b = a.substr(a.lastIndexOf('/'));
+  if (b == '/') {
+    event.respondWith(caches.match('index.html'))
+  }else {
+    event.respondWith(
     caches.match(request).then(response => {
       return response || fetch(event.request);
     })
