@@ -217,6 +217,9 @@ async function get_conditions() {
   if (params.auto == 1) {
     setAutoBtn.classList.add('btn_active');
     setAutoBtn.dataset.dnum = '1';
+  }else {
+    setAutoBtn.classList.remove('btn_active')
+    setAutoBtn.dataset.dnum = '0';
   }
   for (let [key, value] of Object.entries(d_stat)){
     var el = document.querySelector('button[name="door'+key+'"]');

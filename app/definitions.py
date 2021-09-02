@@ -1,6 +1,6 @@
 import megaioind as m
 bord_id = 0
-AO_id   = 1
+AO_id   = 4
 
 door_ids = {
 "main"  : [1,3],
