@@ -43,7 +43,7 @@ def open_door(dnum):
 def close_door(dnum):
     m.setRelay(bord_id,calc_door(dnum),0)
 
-def set_doors(num):
+def set_door_relays(num):
     m.setRelays(bord_id,num)
 
 def relay_state():
