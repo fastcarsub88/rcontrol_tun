@@ -161,7 +161,7 @@ var poll = {
   start: async function () {
     if (poll.paused) {return}
       await get_conditions();
-      poll.timer = setTimeout(poll.start,10000);
+      poll.timer = setTimeout(poll.start,3000);
     },
   pause: () => {
     poll.paused = true;
