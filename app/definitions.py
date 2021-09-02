@@ -28,14 +28,14 @@ def calc_doors(type):
     str = '0000'
     for i in door_ids[type]:
         str = str[:(i-1)] +'1'+ str[i:]
-    return int(str[::-1])
+    return int(str[::-1],2)
 
 def calc_tun_doors():
     str = '0000'
     for i in tun_doors:
         index = door_ids[i[0:-1]][int(i[-1])]
         str = str[:(index-1)] +'1'+ str[index:]
-    return int(str[::-1])
+    return int(str[::-1],2)
 
 def open_door(dnum):
     m.setRelay(bord_id,calc_door(dnum),1)
