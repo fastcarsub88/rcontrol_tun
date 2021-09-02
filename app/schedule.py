@@ -56,16 +56,21 @@ def set_door_press(data,tm):
 def set_doors(state):
     if is_tunnel():
         open_door('main1')
-        close_door('small1')
         open_door('small2')
+        close_door('small1')
         close_door('main2')
         return
     if state == 'reset' or state == 'none':
         close_doors('small')
         close_doors('main')
         return
-    open_doors(state)
-    close_doors(state)
+    if state == 'main':
+        open_doors('main')
+        close_doors('small')
+        return
+    if state == 'small':
+        open_doors('small')
+        close_doors('main')
 
 while True:
     time.sleep(5)
