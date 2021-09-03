@@ -69,8 +69,13 @@ stModal.open = function () {
   this.classList.remove('no-display')
 }
 stModal.close = function () {this.classList.add('no-display')}
-loader.show = function () {this.classList.remove('no-display')}
-loader.hide = function () {this.classList.add('no-display')}
+loader.show = function () {
+  loader.timeout = setTimeout(() => {loader.classList.remove('no-display')},1000)
+}
+loader.hide = function () {
+  clearTimeout(loader.timeout)
+  this.classList.add('no-display')
+}
 setAutoBtn.onclick = () => modal.open('set_auto');
 document.getElementById('auto_btn').onclick = () => {modal.open('set_auto')};
 document.getElementById('pres_btn').onclick = () => {modal.open('set_pressure')};
@@ -184,7 +189,8 @@ async function send_data(request) {
       window.location.href+'/api',
       {method: 'POST',body: request}
     )
-    .then((response)=> {return response.json()})
+    .then((response) => {return response.json()})
+    .catch(() => {return})
 }
 async function get_params() {
   loader.show();
@@ -207,9 +213,10 @@ async function get_status() {
 async function get_conditions() {
   var status = await get_status();
   if (!status) {
-    document.getElementById('last_time').innerText = 'Not Connected!'
+    loader.show()
     return
   }
+  loader.hide()
   params = JSON.parse(status.params);
   var d_stat = status.d_stat.split('');
   document.getElementById('temp_elem').innerText = params.feels_like;

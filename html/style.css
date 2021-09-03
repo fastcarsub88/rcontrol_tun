@@ -83,14 +83,35 @@ p img{height: 1em}
   right: 1rem;
   top: 1rem;
 }
+.saving span {
+    animation-name: blink;
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+    font-size: 4rem;
+}
+.saving span:nth-child(2) {animation-delay: .2s;}
+.saving span:nth-child(3) {animation-delay: .4s;}
+
 #par_open_tm_div,#par_open_sn_div,#par_close_tm_div,#par_close_sn_div{display: none}
 #par_chbx_snr:checked ~ #par_open_sn_div,
 #par_chbx_op_tm:checked ~ #par_open_tm_div,
 #par_chbx_snst:checked ~ #par_close_sn_div,
 #par_chbx_cl_tm:checked ~ #par_close_tm_div{display: block}
+#loader_elem .modal{
+  background: none;
+  color: whitesmoke;
+  font-size: 2rem;
+  text-shadow: 0px 0px 10px white;
+}
 @media screen and (max-device-width:500px) {
   html{font-size: 40px}
   .mdl-slider{height: 50vh}
   .mdl-slider::-webkit-slider-thumb{transform: scale(6)}
   .modal{min-width: 50vw}
+}
+@keyframes blink {
+    0% {opacity: .2;}
+    20% {opacity: 1;}
+    100% {opacity: .2;}
 }

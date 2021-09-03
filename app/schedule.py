@@ -54,11 +54,11 @@ def set_door_press(data,tm):
         set_press(data['max_pres'])
 
 def set_doors(state):
-    if is_tunnel():
-        set_door_relays(calc_tun_doors())
-        return
     if state == 'reset' or state == 'none':
         set_door_relays(0)
+        return
+    if is_tunnel():
+        set_door_relays(calc_tun_doors())
         return
     set_door_relays(calc_doors(state))
 

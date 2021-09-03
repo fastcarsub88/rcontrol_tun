@@ -1,4 +1,4 @@
-var cacheName = 'rcontrol_tun-v4';
+var cacheName = 'rcontrol_tun-v9';
 var filesToCache = [
   "index.js?"+cacheName,
   "style.css?"+cacheName,
@@ -40,6 +40,6 @@ self.addEventListener(
       event.respondWith(caches.match('index.html?'+cacheName))
       return
     }
-    event.respondWith(caches.match(event.request+"?"+cacheName))
+    event.respondWith(caches.match(event.request.url+"?"+cacheName))
   }
 )
