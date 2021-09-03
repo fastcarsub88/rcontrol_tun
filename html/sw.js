@@ -7,7 +7,7 @@ var filesToCache = [
   'img/maskicon.png'
 ]
 self.addEventListener('install', function(e) {
-  console.log('installing sw'+cacheName);
+  console.log('installing sw '+cacheName);
   self.skipWaiting();
   e.waitUntil(
     caches.open(cacheName).then(function(cache) {
@@ -39,7 +39,7 @@ self.addEventListener(
       event.respondWith(caches.match('index.html'))
     }else {
       event.respondWith(
-        caches.match(request).then(
+        caches.match(event.request).then(
           response => {return response || fetch(event.request)}
         )
       )
