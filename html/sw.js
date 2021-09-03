@@ -37,7 +37,7 @@ self.addEventListener(
     var b = a.substr(a.lastIndexOf('/'))
     if (b == '/api') { return }
     if (b == '/') {
-      event.respondWith(caches.match('index.html'))
+      event.respondWith(caches.match('index.html?'+cacheName))
       return
     }
     event.respondWith(caches.match(event.request))
