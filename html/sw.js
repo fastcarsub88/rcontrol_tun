@@ -1,10 +1,10 @@
 var cacheName = 'rcontrol_tun-v2';
 var filesToCache = [
   "index.js?"+cacheName,
-  "style.css",
-  "manifest.json",
-  'index.html',
-  'img/maskicon.png'
+  "style.css?"+cacheName,
+  "manifest.json?"+cacheName,
+  "index.html?"+cacheName,
+  "img/maskicon.png?"+cacheName
 ]
 self.addEventListener('install', function(e) {
   console.log('installing sw '+cacheName);
@@ -34,15 +34,12 @@ self.addEventListener(
   'fetch',
   event => {
     var a = event.request.url;
-    var b = a.substr(a.lastIndexOf('/'))
+    var b = a.substr(a.lastIndexOf('/'));
+    if (b == '/api') { return };
     if (b == '/') {
       event.respondWith(caches.match('index.html'))
-    }else {
-      event.respondWith(
-        caches.match(event.request).then(
-          response => {return response || fetch(event.request)}
-        )
-      )
+      return
     }
+    event.respondWith(caches.match(event.request);
   }
 )

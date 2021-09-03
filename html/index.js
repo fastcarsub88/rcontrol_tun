@@ -207,6 +207,10 @@ async function get_status() {
 }
 async function get_conditions() {
   var status = await get_status();
+  if (!status) {
+    document.getElementById('last_time').innerText = 'Not Connected!'
+    return
+  }
   params = JSON.parse(status.params);
   var d_stat = status.d_stat.split('');
   document.getElementById('temp_elem').innerText = params.feels_like;
