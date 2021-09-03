@@ -30,16 +30,19 @@ self.addEventListener('activate',  event => {
   );
 });
 
-self.addEventListener('fetch', event => {
-  var a = event.request.url;
-  var b = a.substr(a.lastIndexOf('/'));
-  if (b == '/') {
-    event.respondWith(caches.match('index.html'))
-  }else {
-    event.respondWith(
-      caches.match(request).then(
-        response => {return response || fetch(event.request)}
+self.addEventListener(
+  'fetch',
+  event => {
+    var a = event.request.url;
+    var b = a.substr(a.lastIndexOf('/'))
+    if (b == '/') {
+      event.respondWith(caches.match('index.html'))
+    }else {
+      event.respondWith(
+        caches.match(request).then(
+          response => {return response || fetch(event.request)}
+        )
       )
-    )
+    }
   }
 )
