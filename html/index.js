@@ -185,7 +185,6 @@ async function send_data(request) {
       {method: 'POST',body: request}
     )
     .then((response)=> {return response.json()})
-    .catch(()=>{alert("Not connected to controller")});
 }
 async function get_params() {
   loader.show();
