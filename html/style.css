@@ -83,6 +83,11 @@ p img{height: 1em}
   right: 1rem;
   top: 1rem;
 }
+.saving{
+  line-height: 1rem;
+  font-family: sans-serif;
+  font-style: italic;
+}
 .saving span {
     animation-name: blink;
     animation-duration: 1.4s;
@@ -90,8 +95,8 @@ p img{height: 1em}
     animation-fill-mode: both;
     font-size: 4rem;
 }
-.saving span:nth-child(2) {animation-delay: .2s;}
-.saving span:nth-child(3) {animation-delay: .4s;}
+.saving span:nth-child(3) {animation-delay: .2s;}
+.saving span:nth-child(4) {animation-delay: .4s;}
 
 #par_open_tm_div,#par_open_sn_div,#par_close_tm_div,#par_close_sn_div{display: none}
 #par_chbx_snr:checked ~ #par_open_sn_div,
@@ -100,6 +105,7 @@ p img{height: 1em}
 #par_chbx_cl_tm:checked ~ #par_close_tm_div{display: block}
 #loader_elem .modal{
   background: none;
+  padding-top: 30vh;
   color: whitesmoke;
   font-size: 2rem;
   text-shadow: 0px 0px 10px white;
