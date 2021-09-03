@@ -40,6 +40,6 @@ self.addEventListener(
       event.respondWith(caches.match('index.html?'+cacheName))
       return
     }
-    event.respondWith(caches.match(event.request))
+    event.respondWith(caches.match(event.request+"?"+cacheName)
   }
 )
