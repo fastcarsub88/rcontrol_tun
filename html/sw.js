@@ -37,8 +37,9 @@ self.addEventListener('fetch', event => {
     event.respondWith(caches.match('index.html'))
   }else {
     event.respondWith(
-    caches.match(request).then(response => {
-      return response || fetch(event.request);
-    })
-  );
-});
+      caches.match(request).then(
+        response => {return response || fetch(event.request)}
+      );
+    )
+  }
+);
