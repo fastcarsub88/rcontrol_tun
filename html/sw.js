@@ -33,13 +33,13 @@ self.addEventListener('activate',  event => {
 self.addEventListener(
   'fetch',
   event => {
-    var a = event.request.url;
-    var b = a.substr(a.lastIndexOf('/'));
-    if (b == '/api') { return };
+    var a = event.request.url
+    var b = a.substr(a.lastIndexOf('/'))
+    if (b == '/api') { return }
     if (b == '/') {
       event.respondWith(caches.match('index.html'))
       return
     }
-    event.respondWith(caches.match(event.request);
+    event.respondWith(caches.match(event.request))
   }
 )
