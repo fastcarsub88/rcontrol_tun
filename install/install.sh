@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get install build-essential python-pip python-dev python-smbus git nginx -y
+sudo apt-get install build-essential python-pip python-dev python-smbus nginx -y
 cd /home/pi
 git clone https://github.com/SequentMicrosystems/megaioind-rpi.git
 cd megaioind-rpi/python/megaioind/
@@ -14,3 +14,5 @@ sudo systemctl link /home/pi/rcontrol_tun/install/rcontrol_web.service
 sudo systemctl link /home/pi/rcontrol_tun/install/rcontrol_sched.service
 sudo systemctl enable rcontrol_web
 sudo systemctl enable rcontrol_sched
+sudo raspi-config nonint do_i2c 0
+sudo reboot
