@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get install build-essential python-pip python-dev python-smbus nginx -y
+sudo apt-get install build-essential python3-pip python3-dev python3-smbus nginx -y
 cd /home/pi
 git clone https://github.com/SequentMicrosystems/megaioind-rpi.git
 cd megaioind-rpi/python/megaioind/
