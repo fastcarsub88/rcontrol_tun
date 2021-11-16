@@ -90,4 +90,4 @@ def application(env, start_response):
     else:
         response = '{"error":"not allowed"}'
     start_response('200',[('Content-Type','text/html'),('Access-Control-Allow-Origin','*')])
-    return[response]
+    return[response.encode('utf_8')]
