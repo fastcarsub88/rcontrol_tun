@@ -1,9 +1,22 @@
 #!/bin/bash
-
+if [ ! $1 ]; then
+    echo "Specify (8_relay) or (megaioind)"
+    exit
+fi
 sudo apt-get install build-essential python3-pip python3-dev python3-smbus nginx -y
 cd /home/pi
-git clone https://github.com/SequentMicrosystems/megaioind-rpi.git
-cd megaioind-rpi/python/megaioind/
+if [[ $1 == "8_relay" ]]; then
+  #statements
+  git clone https://github.com/SequentMicrosystems/ioplus-rpi.git
+  cp /home/pi/rcontrol_tun/install/ioplus.py /home/pi/rcontrol_tun/app/definitions.py
+  cd ioplus-rpi/python/ioplus/
+fi
+if [[ $1 == "megaioind" ]]; then
+  #statements
+  git https://github.com/SequentMicrosystems/megaioind-rpi.git
+  cp /home/pi/rcontrol_tun/install/megaioind.py /home/pi/rcontrol_tun/app/definitions.py
+  cd imegaioind-rpi/python/megaioind/
+fi
 sudo python setup.py install
 sudo pip install uwsgi
 sudo pip install requests
