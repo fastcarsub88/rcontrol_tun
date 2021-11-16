@@ -39,10 +39,10 @@ def calc_tun_doors():
     return int(str[::-1],2)
 
 def open_door(dnum):
-    m.setRelay(bord_id,calc_door(dnum),1)
+    m.setRelayCh(bord_id,calc_door(dnum),1)
 
 def close_door(dnum):
-    m.setRelay(bord_id,calc_door(dnum),0)
+    m.setRelayCh(bord_id,calc_door(dnum),0)
 
 def set_door_relays(num):
     m.setRelays(bord_id,num)
@@ -54,6 +54,4 @@ def is_tunnel():
     return m.getOptoCh(bord_id,DI_id)
 
 def set_press(press):
-    if int(m.getUOut(bord_id,AO_id)) == press:
-        return
-    m.setUOut(bord_id,AO_id,press)
+    m.setDacV(bord_id,AO_id,press)
