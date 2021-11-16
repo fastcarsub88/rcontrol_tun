@@ -69,7 +69,10 @@ while True:
         data_file = json.load(f)
     if (cr_tm - last_weather_check) > 10 or last_weather_check > cr_tm:
         last_weather_check = cr_tm
-        get_conditions(data_file)
+        try:
+            get_conditions(data_file)
+        except:
+            pass
     if data_file['auto'] == 0:
         continue
     feels_like = data_file['feels_like']
