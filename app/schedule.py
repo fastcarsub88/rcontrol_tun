@@ -11,7 +11,7 @@ def get_conditions(data_file):
     data_file['wind_speed'] = w_dict['wind']['speed']
     data_file['sunrise'] = time.strftime("%H:%M",time.localtime(w_dict['sys']['sunrise']))
     data_file['sunset'] = time.strftime("%H:%M",time.localtime(w_dict['sys']['sunset']))
-    data_file['rain'] = requests.get("https://rcontrol.hawcreektech.com/dogwood/rain_api?method=get_state").text
+    data_file['rain'] = ('false' if w_dict['weather'][0]['id'] > 781 else 'true')
     c_wind_dir = (w_dict['wind']['deg'] if 'deg' in w_dict['wind'] else '0')
     for value in wind_dir_dict:
         if value < c_wind_dir:
