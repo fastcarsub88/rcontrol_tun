@@ -224,6 +224,7 @@ async function get_conditions() {
   document.getElementById('wind_dir_elem').innerText = params.wind_dir;
   document.getElementById('rain_elem').innerText = (params.rain == 'true' ? "Yes": "No");
   document.getElementById('time_elem').innerText = status.time;
+  document.getElementById('error_message').innerText = (params.weather_error == 'false' ? '' : 'Weather check failed!!')
   if (params.auto == 1) {
     setAutoBtn.classList.add('btn_active');
     setAutoBtn.dataset.dnum = '1';

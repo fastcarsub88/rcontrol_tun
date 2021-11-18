@@ -71,8 +71,9 @@ while True:
         last_weather_check = cr_tm
         try:
             get_conditions(data_file)
-        except:
-            pass
+            data_file['weather_error'] = 'false'
+        except requests.exceptions.RequestException as e:
+            data_file['weather_error'] = e.message
     if data_file['auto'] == 0:
         continue
     feels_like = data_file['feels_like']
