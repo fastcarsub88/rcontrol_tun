@@ -12,7 +12,7 @@ def get_conditions(data_file):
         data_file['weather_error'] = e.message
     if w_data.status_code == 200:
         w_data_check = w_data.text
-        w_dict = json.loads(w_data_check.text)
+        w_dict = json.loads(w_data_check)
         if w_dict['main']['feels_like']:
             data_file['feels_like'] = w_dict['main']['feels_like']
             data_file['wind_speed'] = w_dict['wind']['speed']
