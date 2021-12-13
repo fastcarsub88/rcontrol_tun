@@ -5,24 +5,31 @@ from definitions import *
 last_weather_check = 0
 
 def get_conditions(data_file):
-    w_data = requests.get("https://api.openweathermap.org/data/2.5/weather?zip=65078,us&appid=914fd2c984f8077049df587218d8579d&units=imperial")
-    w_dict = json.loads(w_data.text)
-    data_file['feels_like'] = w_dict['main']['feels_like']
-    data_file['wind_speed'] = w_dict['wind']['speed']
-    data_file['sunrise'] = time.strftime("%H:%M",time.localtime(w_dict['sys']['sunrise']))
-    data_file['sunset'] = time.strftime("%H:%M",time.localtime(w_dict['sys']['sunset']))
-    data_file['rain'] = ('false' if w_dict['weather'][0]['id'] > 781 else 'true')
-    c_wind_dir = (w_dict['wind']['deg'] if 'deg' in w_dict['wind'] else '0')
-    for value in wind_dir_dict:
-        if value < c_wind_dir:
-            continue
-        if (value - c_wind_dir) < 23:
-            wind_dir_str = wind_dir_dict[value]
-        else:
-            wind_dir_str = wind_dir_dict[(value-45)]
-    data_file['wind_dir'] = wind_dir_str
-    with open('data_file.json','w') as f:
-         f.write(json.dumps(data_file))
+    try:
+        w_data = requests.get("https://api.openweathermap.org/data/2.5/weather?zip=65078,us&appid=914fd2c984f8077049df587218d8579d&units=imperial")
+        data_file['weather_error'] = 'false'
+    except requests.exceptions.RequestException as e:
+        data_file['weather_error'] = e.message
+    if w_data.status_code == 200:
+        w_data_check = w_data.text
+        w_dict = json.loads(w_data_check.text)
+        if w_dict['main']['feels_like']:
+            data_file['feels_like'] = w_dict['main']['feels_like']
+            data_file['wind_speed'] = w_dict['wind']['speed']
+            data_file['sunrise'] = time.strftime("%H:%M",time.localtime(w_dict['sys']['sunrise']))
+            data_file['sunset'] = time.strftime("%H:%M",time.localtime(w_dict['sys']['sunset']))
+            data_file['rain'] = ('false' if w_dict['weather'][0]['id'] > 781 else 'true')
+            c_wind_dir = (w_dict['wind']['deg'] if 'deg' in w_dict['wind'] else '0')
+            for value in wind_dir_dict:
+                if value < c_wind_dir:
+                    continue
+                if (value - c_wind_dir) < 23:
+                    wind_dir_str = wind_dir_dict[value]
+                else:
+                    wind_dir_str = wind_dir_dict[(value-45)]
+            data_file['wind_dir'] = wind_dir_str
+            with open('data_file.json','w') as f:
+                 f.write(json.dumps(data_file))
 
 def cnt_time(time,num):
     t = int(time.replace(':',''))
@@ -69,11 +76,9 @@ while True:
         data_file = json.load(f)
     if (cr_tm - last_weather_check) > 10 or last_weather_check > cr_tm:
         last_weather_check = cr_tm
-        try:
-            get_conditions(data_file)
-            data_file['weather_error'] = 'false'
-        except requests.exceptions.RequestException as e:
-            data_file['weather_error'] = e.message
+        get_conditions(data_file)
+    if len(data_file) != 20 or data_file['weather_error']:
+        requests.post('https://api.telegram.org/bot987030942:AAG49kJiZGQBAOFBgS_SOM9-RWGIT5On_ws/sendMessage?chat_id=-1001154782385&text=rcontrol_copperfeather has an issue')
     if data_file['auto'] == 0:
         continue
     feels_like = data_file['feels_like']
