@@ -79,8 +79,6 @@ while True:
     if (cr_tm - last_weather_check) > 10 or last_weather_check > cr_tm:
         last_weather_check = cr_tm
         get_conditions(data_file)
-    if data_file['weather_error'] != 'false':
-
     if data_file['auto'] == 0:
         continue
     feels_like = data_file['feels_like']
