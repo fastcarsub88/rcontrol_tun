@@ -69,6 +69,8 @@ def set_doors(state):
         return
     set_door_relays(calc_doors(state))
 
+requests.post('https://api.telegram.org/bot987030942:AAG49kJiZGQBAOFBgS_SOM9-RWGIT5On_ws/sendMessage?chat_id=-1001154782385&text=rcontrol_copperfeather has an started')
+
 while True:
     time.sleep(5)
     cr_tm = int(datetime.now().strftime('%H:%M').replace(":",''))
@@ -77,8 +79,8 @@ while True:
     if (cr_tm - last_weather_check) > 10 or last_weather_check > cr_tm:
         last_weather_check = cr_tm
         get_conditions(data_file)
-    if len(data_file) != 20 or data_file['weather_error'] != 'false':
-        requests.post('https://api.telegram.org/bot987030942:AAG49kJiZGQBAOFBgS_SOM9-RWGIT5On_ws/sendMessage?chat_id=-1001154782385&text=rcontrol_copperfeather has an issue')
+    if data_file['weather_error'] != 'false':
+
     if data_file['auto'] == 0:
         continue
     feels_like = data_file['feels_like']

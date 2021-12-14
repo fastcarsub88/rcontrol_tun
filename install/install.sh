@@ -6,13 +6,11 @@ fi
 sudo apt-get install build-essential python3-pip python3-dev python3-smbus nginx -y
 cd /home/pi
 if [[ $1 == "8_relay" ]]; then
-  #statements
   git clone https://github.com/SequentMicrosystems/ioplus-rpi.git
   cp /home/pi/rcontrol_tun/install/ioplus.py /home/pi/rcontrol_tun/app/definitions.py
   cd ioplus-rpi/python/ioplus/
 fi
 if [[ $1 == "megaioind" ]]; then
-  #statements
   git https://github.com/SequentMicrosystems/megaioind-rpi.git
   cp /home/pi/rcontrol_tun/install/megaioind.py /home/pi/rcontrol_tun/app/definitions.py
   cd imegaioind-rpi/python/megaioind/
