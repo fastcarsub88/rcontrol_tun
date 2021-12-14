@@ -21,6 +21,7 @@ sudo pip install requests
 sudo rm /etc/nginx/sites-enabled/default
 sudo ln -s /home/pi/rcontrol_tun/install/nginx_conf /etc/nginx/sites-enabled/
 sudo nginx -s reload
+cp /home/pi/rcontrol_tun/app/example_data_file.json /home/pi/rcontrol_tun/app/data_file.json
 sudo systemctl link /home/pi/rcontrol_tun/install/rcontrol_web.service
 sudo systemctl link /home/pi/rcontrol_tun/install/rcontrol_sched.service
 sudo systemctl enable rcontrol_web
