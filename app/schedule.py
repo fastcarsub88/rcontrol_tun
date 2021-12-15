@@ -69,13 +69,14 @@ def set_doors(state):
         return
     set_door_relays(calc_doors(state))
 
-requests.post('https://api.telegram.org/bot987030942:AAG49kJiZGQBAOFBgS_SOM9-RWGIT5On_ws/sendMessage?chat_id=-1001154782385&text=rcontrol_copperfeather has an started')
-
 while True:
     time.sleep(5)
     cr_tm = int(datetime.now().strftime('%H:%M').replace(":",''))
     with open('data_file.json') as f:
-        data_file = json.load(f)
+        try:
+            data_file = json.load(f)
+        except Exception as e:
+            requests.post('https://api.telegram.org/bot987030942:AAG49kJiZGQBAOFBgS_SOM9-RWGIT5On_ws/sendMessage?chat_id=-1001154782385&text=rcontrol_copperfeather has an error') 
     if (cr_tm - last_weather_check) > 10 or last_weather_check > cr_tm:
         last_weather_check = cr_tm
         get_conditions(data_file)
