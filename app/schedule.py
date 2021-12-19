@@ -10,6 +10,8 @@ def get_conditions(data_file):
         data_file['weather_error'] = 'false'
     except requests.exceptions.RequestException as e:
         data_file['weather_error'] = e.message
+        f.write(json.dumps(data_file))
+        return
     if w_data.status_code == 200:
         w_data_check = w_data.text
         w_dict = json.loads(w_data_check)
@@ -61,6 +63,7 @@ def set_door_press(data,tm):
         set_press(data['max_pres'])
 
 def set_doors(state):
+    # state == none,reset,main,small
     if state == 'reset' or state == 'none':
         set_door_relays(0)
         return
@@ -76,7 +79,7 @@ while True:
         try:
             data_file = json.load(f)
         except Exception as e:
-            requests.post('https://api.telegram.org/bot987030942:AAG49kJiZGQBAOFBgS_SOM9-RWGIT5On_ws/sendMessage?chat_id=-1001154782385&text=rcontrol_copperfeather has an error') 
+            requests.post('https://api.telegram.org/bot987030942:AAG49kJiZGQBAOFBgS_SOM9-RWGIT5On_ws/sendMessage?chat_id=-1001154782385&text=rcontrol_copperfeather has an error')
     if (cr_tm - last_weather_check) > 10 or last_weather_check > cr_tm:
         last_weather_check = cr_tm
         get_conditions(data_file)

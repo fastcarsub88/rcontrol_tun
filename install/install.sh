@@ -1,11 +1,11 @@
 #!/bin/bash
 if [ ! $1 ]; then
-    echo "Specify (8_relay) or (megaioind)"
+    echo "Specify (megaioind) or (ioplus)"
     exit
 fi
 sudo apt-get install build-essential python3-pip python3-dev python3-smbus nginx -y
 cd /home/pi
-if [[ $1 == "8_relay" ]]; then
+if [[ $1 == "ioplus" ]]; then
   git clone https://github.com/SequentMicrosystems/ioplus-rpi.git
   cp /home/pi/rcontrol_tun/install/ioplus.py /home/pi/rcontrol_tun/app/definitions.py
   cd ioplus-rpi/python/ioplus/
