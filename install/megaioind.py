@@ -65,7 +65,7 @@ def index_find(i):
                 return v+str(door_ids[v].index(va))
 
 def relay_state():
-    st = '{0:08b}'.format(r.get_all(bord_id))
+    '{0:04b}'.format(m.getRelays(bord_id))
     rt = {}
     ind = 4
     for i in st:
