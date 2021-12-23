@@ -71,4 +71,4 @@ def relay_state():
     for i in st:
         rt[index_find(ind)] = i
         ind = ind - 1
-    return json.dumps(rt)
+    return rt
