@@ -27,7 +27,7 @@ def get_params():
 
 def get_status():
     res = {}
-    res['d_stat'] = relay_state()[::-1]
+    res['d_stat'] = relay_state()
     res['params'] = get_params()
     res['time'] = datetime.now().strftime('%H:%M')
     return json.dumps(res)
