@@ -218,7 +218,7 @@ async function get_conditions() {
   }
   loader.hide()
   params = JSON.parse(status.params);
-  var d_stat = JSON.parse(status.d_stat);
+  var d_stat = status.d_stat;
   document.getElementById('temp_elem').innerText = params.feels_like;
   document.getElementById('wind_sp_elem').innerText = params.wind_speed;
   document.getElementById('wind_dir_elem').innerText = params.wind_dir;
