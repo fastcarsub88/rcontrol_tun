@@ -218,7 +218,7 @@ async function get_conditions() {
   }
   loader.hide()
   params = JSON.parse(status.params);
-  var d_stat = status.d_stat.split('');
+  var d_stat = JSON.parse(status.d_stat);
   document.getElementById('temp_elem').innerText = params.feels_like;
   document.getElementById('wind_sp_elem').innerText = params.wind_speed;
   document.getElementById('wind_dir_elem').innerText = params.wind_dir;
@@ -233,13 +233,18 @@ async function get_conditions() {
     setAutoBtn.dataset.dnum = '0';
   }
   for (let [key, value] of Object.entries(d_stat)){
-    var el = document.querySelector('button[name="door'+key+'"]');
+    var el = document.querySelector('button[name="'+key+'"]');
+    var func_set = (key.includes('open') || key.includes('close')? false : true)
     if (value == '1') {
       el.classList.add("btn_active");
-      el.dataset.dfunc = 'close'
+      if (func_set) {
+        el.dataset.dfunc = 'close'
+      }
     }else {
       el.classList.remove('btn_active');
-      el.dataset.dfunc = 'open'
+      if (func_set) {
+          el.dataset.dfunc = 'open'
+      }
     }
   }
   var d = new Date();

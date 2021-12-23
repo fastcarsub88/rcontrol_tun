@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>R-Control</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="custom.css">
     <script src="index.js" charset="utf-8" defer></script>
     <link rel="manifest" href="manifest.json">
     <script type="text/javascript">
@@ -34,16 +35,44 @@
         </div>
       </div>
       <div>
-        <div class="row">
-          <div class="d-group col2">
-            <p>Front Doors</p>
-            <button class="btn_light dbtn" type="button" data-dnum="main0" data-dfunc="open" name="door0">Main</button>
-            <button class="btn_light dbtn" type="button" data-dnum="small0" data-dfunc="open" name="door1">Small</button>
+        <div class="4relay">
+          <div class="row">
+            <div class="d-group col2">
+              <p>Front Doors</p>
+              <button class="btn_light dbtn" type="button" data-dnum="main0" data-dfunc="open" name="main0">Main</button>
+              <button class="btn_light dbtn" type="button" data-dnum="small0" data-dfunc="open" name="small0">Small</button>
+            </div>
+            <div class="d-group col2">
+              <p>Main Doors</p>
+              <button class="btn_light dbtn" type="button" data-dnum="main1" data-dfunc="open" name="main1">Main</button>
+              <button class="btn_light dbtn" type="button" data-dnum="small1" data-dfunc="open" name="small1">Small</button>
+            </div>
           </div>
-          <div class="d-group col2">
-            <p>Main Doors</p>
-            <button class="btn_light dbtn" type="button" data-dnum="main1" data-dfunc="open" name="door2">Main</button>
-            <button class="btn_light dbtn" type="button" data-dnum="small1" data-dfunc="open" name="door3">Small</button>
+        </div>
+        <div class="8relay">
+          <div class="row">
+            <div class="d-group col2">
+              <p>Main Doors</p>
+              <button class="btn_light" type="button" data-dnum="mainopen0" data-dfunc="open" name="mainopen0">Open</button>
+              <button class="btn_light" type="button" data-dnum="mainclose0" data-dfunc="close" name="mainclose0">Close</button>
+            </div>
+            <div class="d-group col2">
+              <p>Small Doors</p>
+              <button class="btn_light" type="button" data-dnum="smallopen0" data-dfunc="open" name="smallopen0">Open</button>
+              <button class="btn_light" type="button" data-dnum="smallclose0" data-dfunc="close" name="smallclose0">Close</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="d-group col2">
+              <p>Main Doors</p>
+              <button class="btn_light" type="button" data-dnum="mainopen1" data-dfunc="open" name="mainopen1">Open</button>
+              <button class="btn_light" type="button" data-dnum="mainclose1" data-dfunc="close" name="mainclose1">Close</button>
+            </div>
+            <div class="d-group col2">
+              <p>Small Doors</p>
+              <button class="btn_light" type="button" data-dnum="smallopen1" data-dfunc="open" name="smallopen1">Open</button>
+              <button class="btn_light" type="button" data-dnum="smallopen1" data-dfunc="close" name="smallopen1">Close</button>
+            </div>
           </div>
         </div>
       </div>

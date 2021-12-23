@@ -1,4 +1,7 @@
 import megaioind as m
+
+name = 'example'
+
 bord_id = 0
 AO_id   = 1
 DI_id   = 4

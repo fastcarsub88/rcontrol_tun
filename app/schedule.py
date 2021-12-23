@@ -79,7 +79,7 @@ while True:
         try:
             data_file = json.load(f)
         except Exception as e:
-            requests.post('https://api.telegram.org/bot987030942:AAG49kJiZGQBAOFBgS_SOM9-RWGIT5On_ws/sendMessage?chat_id=-1001154782385&text=rcontrol_copperfeather has an error')
+            requests.post('https://api.telegram.org/bot987030942:AAG49kJiZGQBAOFBgS_SOM9-RWGIT5On_ws/sendMessage?chat_id=-1001154782385&text='name' has an error')
     if (cr_tm - last_weather_check) > 10 or last_weather_check > cr_tm:
         last_weather_check = cr_tm
         get_conditions(data_file)

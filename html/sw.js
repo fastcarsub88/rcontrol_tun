@@ -2,6 +2,7 @@ var cacheName = 'rcontrol_tun-v02';
 var filesToCache = [
   "index.js?"+cacheName,
   "style.css?"+cacheName,
+  "custom.css?"+cacheName,
   "manifest.json?"+cacheName,
   "index.html?"+cacheName,
   "img/maskicon.png?"+cacheName
