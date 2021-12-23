@@ -50,9 +50,6 @@ def close_door(dnum):
 def set_door_relays(num):
     m.setRelays(bord_id,num)
 
-def relay_state():
-    return '{0:04b}'.format(m.getRelays(bord_id))
-
 def is_tunnel():
     return m.getOptoCh(bord_id,DI_id)
 
@@ -60,3 +57,18 @@ def set_press(press):
     if int(m.getUOut(bord_id,AO_id)) == press:
         return
     m.setUOut(bord_id,AO_id,press)
+
+def index_find(i):
+    for v in door_ids:
+        for va in door_ids[v]:
+            if i == va:
+                return v+str(door_ids[v].index(va))
+
+def relay_state():
+    st = '{0:08b}'.format(r.get_all(bord_id))
+    rt = {}
+    ind = 4
+    for i in st:
+        rt[index_find(ind)] = i
+        ind = ind - 1
+    return json.dumps(rt)
