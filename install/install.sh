@@ -9,20 +9,20 @@ if [[ $1 == "v3" ]]; then
   git clone https://github.com/SequentMicrosystems/ioplus-rpi.git
   cp /home/pi/rcontrol_tun/install/ioplus.py /home/pi/rcontrol_tun/app/definitions.py
   cp /home/pi/rcontrol_tun/install/custom.css /home/pi/rcontrol_tun/app/custom.css
-  cd ioplus-rpi/python/ioplus/
+  cd /home/pi/rcontrol_tun/ioplus-rpi/python/ioplus/
 fi
 if [[ $1 == "v2" ]]; then
   git https://github.com/SequentMicrosystems/megaioind-rpi.git
   cp /home/pi/rcontrol_tun/install/megaioind.py /home/pi/rcontrol_tun/app/definitions.py
   cp /home/pi/rcontrol_tun/install/custom.css /home/pi/rcontrol_tun/app/custom.css
-  cd imegaioind-rpi/python/megaioind/
+  cd /home/pi/rcontrol_tun/imegaioind-rpi/python/megaioind/
 fi
 if [[ $1 == "v1" ]]; then
   git https://github.com/SequentMicrosystems/megaioind-rpi.git
   cp /home/pi/rcontrol_tun/install/8_relay.py /home/pi/rcontrol_tun/app/definitions.py
   cp /home/pi/rcontrol_tun/install/relay8.py /home/pi/rcontrol_tun/app/
   cp /home/pi/rcontrol_tun/install/8_relay.css /home/pi/rcontrol_tun/app/custom.css
-  cd imegaioind-rpi/python/megaioind/
+  cd /home/pi/rcontrol_tun/imegaioind-rpi/python/megaioind/
 fi
 sudo python setup.py install
 sudo pip install uwsgi
