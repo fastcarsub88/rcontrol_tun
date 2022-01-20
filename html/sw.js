@@ -1,4 +1,5 @@
-var cacheName = 'rcontrol_tun-v02';
+var cacheName = 'rcontrol_tun-v03';
+var oldCache = 'rcontrol_tun-v02';
 var filesToCache = [
   "index.js?"+cacheName,
   "style.css?"+cacheName,
@@ -21,7 +22,7 @@ self.addEventListener('activate',  event => {
   event.waitUntil(
     caches.keys().then(keys=> Promise.all(
       keys.map(key=>{
-        if (cacheName != key) {
+        if (oldCache == key) {
           return caches.delete(key);
         }
       })
@@ -38,9 +39,9 @@ self.addEventListener(
     var b = a.substr(a.lastIndexOf('/'))
     if (b == '/api') { return }
     if (b == '/') {
-      event.respondWith(caches.match('index.html?'+cacheName))
+      event.respondWith(caches.match(a + 'index.html?' + cacheName))
       return
     }
-    event.respondWith(caches.match(event.request.url+"?"+cacheName))
+    event.respondWith(caches.match(a + "?" + cacheName))
   }
 )

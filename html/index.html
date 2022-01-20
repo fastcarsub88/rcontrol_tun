@@ -9,8 +9,10 @@
     <link rel="manifest" href="manifest.json">
     <script type="text/javascript">
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js')
-        .then(function() {console.log('Sw reg')})
+        navigator.serviceWorker.register('sw.js',{
+          scope: document.location.pathname
+        })
+        .then(function(r) {console.log('Service worker registered - Scope:',r.scope)})
       }
     </script>
   </head>
