@@ -106,4 +106,4 @@ def index_find(i):
         for va in door_ids[v]:
             for val in door_ids[v][va]:
                 if i == val:
-                    return v+va+str(door_ids[v][va].index(valst.))
+                    return v+va+str(door_ids[v][va].index(val))
