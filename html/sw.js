@@ -1,5 +1,5 @@
-var cacheName = 'rcontrol_tun-v10';
-var oldCache = 'rcontrol_tun-v09';
+var cacheName = 'rcontrol_tun-v11';
+var oldCache = 'rcontrol_tun-v10';
 var filesToCache = [
   "index.js?"+cacheName,
   "style.css?"+cacheName,
@@ -9,7 +9,9 @@ var filesToCache = [
   "img/maskable_icon_x192.png?"+cacheName,
   "img/maskable_icon_x512.png?"+cacheName,
   "img/apple-touch-icon.png?"+cacheName,
-  "img/rcontrol_icon.png?"+cacheName
+  "img/rcontrol_icon.png?"+cacheName,
+  "img/favicon-16x16.png?"+cacheName,
+  "img/favicon-32x32.png?"+cacheName
 ]
 self.addEventListener('install', function(e) {
   console.log('installing sw '+cacheName);
