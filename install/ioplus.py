@@ -25,9 +25,6 @@ wind_dir_dict = {
 360: "N"
 }
 
-def calc_door(dnum):
-    return door_ids[dnum[0:-1]][int(dnum[-1])]
-
 def calc_doors(type):
     str = '0000'
     for i in door_ids[type]:

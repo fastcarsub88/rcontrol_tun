@@ -64,7 +64,11 @@ def calc_doors_close():
     return int(st[::-1],2)
 
 def calc_tun_doors():
-    return calc_doors(door_ids[tun_doors[0:-1]])
+    st = '00000000'
+    for i in tun_doors:
+        index = door_ids[i[0:-1]]['open'][int(i[-1])-1]
+        st = st[:(index-1)] +'1'+ st[index:]
+    return st[::-1]
 
 def calc_door(dnum,state):
     return door_ids[dnum[0:-1]][state][int(dnum[-1])]
