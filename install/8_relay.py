@@ -18,7 +18,7 @@ door_ids = {
 }
 }
 
-tun_doors = ['small1']
+tun_doors = ['small0','small1']
 
 wind_dir_dict = {
 0  : "N",
@@ -65,9 +65,18 @@ def calc_doors_close():
 
 def calc_tun_doors():
     st = '00000000'
+    on_relays = door_ids['main']['close'] + door_ids['small']['close']
+    for i in on_relays:
+        st = st[:(i-1)] +'1'+ st[i:]
+    tun_op_relays = []
+    tun_cl_relays = []
     for i in tun_doors:
-        index = door_ids[i[0:-1]]['open'][int(i[-1])-1]
-        st = st[:(index-1)] +'1'+ st[index:]
+        tun_op_relays.append(door_ids[i[0:-1]]['open'][int(i[-1])])
+        tun_cl_relays.append(door_ids[i[0:-1]]['close'][int(i[-1])])
+    for i in tun_op_relays:
+        st = st[:(i-1)] +'1'+ st[i:]
+    for i in tun_cl_relays:
+        st = st[:(i-1)] +'0'+ st[i:]
     return int(st[::-1],2)
 
 def calc_door(dnum,state):
