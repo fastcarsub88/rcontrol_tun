@@ -64,11 +64,11 @@ def set_door_press(data,tm):
 
 def set_doors(state):
     # state == none,reset,main,small
-    if state == 'reset' or state == 'none':
-        set_door_relays(0)
-        return
     if is_tunnel():
         set_door_relays(calc_tun_doors())
+        return
+    if state == 'reset' or state == 'none':
+        set_door_relays(0)
         return
     set_door_relays(calc_doors(state))
 
