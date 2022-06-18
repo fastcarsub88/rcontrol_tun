@@ -83,14 +83,14 @@ def calc_door(dnum,state):
     return door_ids[dnum[0:-1]][state][int(dnum[-1])]
 
 def open_door(dnum):
-    r.set(bord_id,calc_door(dnum,'close'),0)
+    r.set(bord_id,calc_door(num,'close'),0)
     time.sleep(0.1)
-    r.set(bord_id,calc_door(dnum,'open'),1)
+    r.set(bord_id,calc_door(num,'open'),1)
 
 def close_door(dnum):
-    r.set(bord_id,calc_door(dnum,'open'),0)
+    r.set(bord_id,calc_door(num,'open'),0)
     time.sleep(0.1)
-    r.set(bord_id,calc_door(dnum,'close'),1)
+    r.set(bord_id,calc_door(num,'close'),1)
 
 def set_door_relays(num):
     if num == 0:
