@@ -1,5 +1,5 @@
-var cacheName = 'rcontrol_tun-v11';
-var oldCache = 'rcontrol_tun-v10';
+var cacheName = 'rcontrol_tun-v12';
+var oldCache = 'rcontrol_tun-v11';
 var filesToCache = [
   "index.js?"+cacheName,
   "style.css?"+cacheName,
