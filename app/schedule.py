@@ -84,6 +84,7 @@ while True:
         last_weather_check = cr_tm
         get_conditions(data_file)
     if data_file['auto'] == 0:
+        set_press(data['rain_pres'])
         continue
     feels_like = data_file['feels_like']
     if data_file['open_method'] == 'time':
